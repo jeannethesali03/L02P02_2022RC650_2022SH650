@@ -1,4 +1,6 @@
-﻿@{
+﻿@model comentarios_libros
+
+@{
     Layout = "~/Views/Shared/LayoutPersonalizado.cshtml";
 }
 
@@ -16,10 +18,10 @@
         <ul class="progressbar">
             <li>AUTORES</li>
             <li>LIBROS</li>
-            <li class="active">COMENTARIOS EXISTENTES</li>
-            <li>NUEVO COMENTARIO</li>
+            <li>COMENTARIOS EXISTENTES</li>
+            <li class="active">NUEVO COMENTARIO</li>
         </ul>
-        
+
 
 
         <!-- Información del autor y libro -->
@@ -38,7 +40,7 @@
             <div class="col-md-6">
                 <h5 class="text-primary">Comentarios Existentes</h5>
                 <div class="list-group">
-                    @if (ViewBag.Comentarios!=null)
+                    @if (ViewBag.Comentarios != null)
                     {
                         @foreach (var comentario in ViewBag.Comentarios)
                         {
@@ -62,9 +64,11 @@
                     <input type="hidden" name="idLibro" value="@ViewBag.IdLibro" />
                     <div class="mb-3">
                         <label for="comentario" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="comentario" name="comentario" rows="4" required></textarea>
+                        <textarea class="form-control" id="comentario" name="comentario" rows="4" required>@ViewBag.UltimoComentario.comentarios</textarea>
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Guardar Comentario</button>
+                    <div class="p-3 d-flex justify-content-center" style="background-color: #DCF3FB; border-radius: 10px">
+                        Comentario adicionado con éxito!
+                    </div>
                 </form>
             </div>
         </div>
