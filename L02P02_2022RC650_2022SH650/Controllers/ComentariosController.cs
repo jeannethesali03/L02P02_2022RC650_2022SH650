@@ -1,5 +1,7 @@
 ﻿using L02P02_2022RC650_2022SH650.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace L02P02_2022RC650_2022SH650.Controllers
 {
@@ -16,21 +18,71 @@ namespace L02P02_2022RC650_2022SH650.Controllers
             return View();
         }
 
+        //public IActionResult Prototipo3(int id_Libro)
+        //{
+        //    id_Libro = 1;
+        //    var comentarios = _context.comentarios_libros
+        //        .Where(c => c.id == id_Libro)
+        //        .Select(c => new comentarios_libros
+        //        {
+        //            id = c.id,
+        //            comentarios = c.comentarios,
+        //            usuario = c.usuario,
+        //            created_at = c.created_at
+        //        })
+        //        .ToList();
+
+        //    return View("/Views/Prototipo3.cshtml", comentarios);
+        //}
+
+
+        [HttpGet]
         public IActionResult Prototipo3(int id_Libro)
         {
             id_Libro = 1;
+            var libro = (from libros in _context.libros
+                         join autores in _context.autores on libros.id_autor equals autores.id
+                         where libros.id == id_Libro
+                         select new
+                         {
+                             libros.nombre,
+                             Autor = autores.autor
+                         }).FirstOrDefault();
+
+
+            if (libro == null)
+            {
+                // Log or handle the case where no book is found
+                return NotFound(); // Or return a view with an error message
+            }
+
             var comentarios = _context.comentarios_libros
-                .Where(c => c.id == id_Libro)
-                .Select(c => new comentarios_libros
-                {
-                    id = c.id,
-                    comentarios = c.comentarios,
-                    usuario = c.usuario,
-                    created_at = c.created_at
-                })
-                .ToList();
+              .Where(comentarios => comentarios.id_libro == id_Libro)
+              .Select(comentarios => new comentarios_libros
+              {
+                  id = comentarios.id,
+                  comentarios = comentarios.comentarios,
+                  usuario = comentarios.usuario,
+                  created_at = comentarios.created_at
+              })
+              .ToList();
+
+            ViewBag.Comentarios = comentarios;
+            ViewBag.Libro = libro.nombre;
+            ViewBag.Autor = libro.Autor;
+            ViewBag.IdLibro = id_Libro;
+
+            // Log the comments to see if they are fetched correctly
+            if (!comentarios.Any())
+            {
+                Console.WriteLine("No se encontraron comentarios para este libro.");
+            }
+            Console.WriteLine("Se están recuperando los comentarios.");
 
             return View("/Views/Prototipo3.cshtml", comentarios);
         }
+
+
+
     }
 }

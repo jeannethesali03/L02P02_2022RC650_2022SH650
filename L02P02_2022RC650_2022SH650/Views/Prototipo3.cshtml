@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model List<comentarios_libros>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,10 +18,10 @@
         <!-- Información del autor y libro -->
         <div class="row mb-3">
             <div class="col-md-6">
-                <strong>Autor:</strong> <span>Nombre del Autor Seleccionado</span>
+                <strong>Autor:</strong> <span>@ViewBag.Autor</span>
             </div>
             <div class="col-md-6">
-                <strong>Libro:</strong> <span>Nombre del Libro Seleccionado</span>
+                <strong>Libro:</strong> <span>@ViewBag.Libro</span>
             </div>
         </div>
 
@@ -29,32 +31,31 @@
             <div class="col-md-6">
                 <h5 class="text-primary">Comentarios Existentes</h5>
                 <div class="list-group">
-                    <div class="list-group-item">
-                        <strong>Comentario 1</strong><br>
-                        <small>Usuario - Fecha</small>
-                    </div>
-                    <div class="list-group-item">
-                        <strong>Comentario 2</strong><br>
-                        <small>Usuario - Fecha</small>
-                    </div>
-                    <div class="list-group-item">
-                        <strong>Comentario 3</strong><br>
-                        <small>Usuario - Fecha</small>
-                    </div>
-                    <div class="list-group-item">
-                        <strong>Comentario 4</strong><br>
-                        <small>Usuario - Fecha</small>
-                    </div>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var comentario in Model)
+                        {
+                            <div class="list-group-item">
+                                <strong>@comentario.comentarios</strong><br>
+                                <small>@comentario.usuario - @comentario.created_at.ToString("dd/MM/yyyy")</small>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No hay comentarios para este libro.</p>
+                    }
                 </div>
             </div>
 
             <!-- Agregar un comentario -->
             <div class="col-md-6">
                 <h5 class="text-primary">Agregar un Comentario</h5>
-                <form>
+                <form method="post" action="/Prototipo/AgregarComentario">
+                    <input type="hidden" name="idLibro" value="@ViewBag.IdLibro" />
                     <div class="mb-3">
                         <label for="comentario" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="comentario" rows="4"></textarea>
+                        <textarea class="form-control" id="comentario" name="comentario" rows="4" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-success w-100">Guardar Comentario</button>
                 </form>
