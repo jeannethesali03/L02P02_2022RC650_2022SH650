@@ -36,7 +36,6 @@ namespace L02P02_2022RC650_2022SH650.Controllers
         //}
 
 
-        [HttpGet]
         public IActionResult Prototipo3(int id_Libro)
         {
             id_Libro = 1;
@@ -49,12 +48,12 @@ namespace L02P02_2022RC650_2022SH650.Controllers
                              Autor = autores.autor
                          }).FirstOrDefault();
 
-
-            if (libro == null)
-            {
-                // Log or handle the case where no book is found
-                return NotFound(); // Or return a view with an error message
-            }
+            //Console.WriteLine("ID:"+ id_Libro);
+            //if (libro == null)
+            //{
+            //    // Log or handle the case where no book is found
+            //    return NotFound(); // Or return a view with an error message
+            //}
 
             var comentarios = _context.comentarios_libros
               .Where(comentarios => comentarios.id_libro == id_Libro)
@@ -72,14 +71,9 @@ namespace L02P02_2022RC650_2022SH650.Controllers
             ViewBag.Autor = libro.Autor;
             ViewBag.IdLibro = id_Libro;
 
-            // Log the comments to see if they are fetched correctly
-            if (!comentarios.Any())
-            {
-                Console.WriteLine("No se encontraron comentarios para este libro.");
-            }
-            Console.WriteLine("Se están recuperando los comentarios.");
+           
 
-            return View("/Views/Prototipo3.cshtml", comentarios);
+            return View("/Views/Prototipo3.cshtml");
         }
 
 

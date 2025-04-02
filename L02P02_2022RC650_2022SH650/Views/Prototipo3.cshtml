@@ -1,5 +1,4 @@
-﻿@model List<comentarios_libros>
-
+﻿
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,9 +30,9 @@
             <div class="col-md-6">
                 <h5 class="text-primary">Comentarios Existentes</h5>
                 <div class="list-group">
-                    @if (Model != null && Model.Any())
+                    @if (ViewBag.Comentarios!=null)
                     {
-                        @foreach (var comentario in Model)
+                        @foreach (var comentario in ViewBag.Comentarios)
                         {
                             <div class="list-group-item">
                                 <strong>@comentario.comentarios</strong><br>
