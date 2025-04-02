@@ -1,0 +1,23 @@
+﻿.navbar {
+    background-color: #1f1f1f;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.navbar-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
