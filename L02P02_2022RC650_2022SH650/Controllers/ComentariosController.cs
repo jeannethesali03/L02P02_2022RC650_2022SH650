@@ -76,6 +76,33 @@ namespace L02P02_2022RC650_2022SH650.Controllers
         }
 
 
+        public IActionResult AgregarComentario(int idLibro, string comentario)
+        {
+            // Verifica que los parámetros sean válidos
+            if (idLibro <= 0 || string.IsNullOrEmpty(comentario))
+            {
+                return BadRequest("Datos inválidos.");
+            }
+
+            // Crear una nueva instancia de ComentariosLibros
+            var nuevoComentario = new comentarios_libros
+            {
+                id = idLibro,
+                comentarios = comentario,
+                usuario = "user", // Asumiendo que todos los comentarios son de un usuario genérico
+                created_at = DateTime.Now // Fecha y hora actual
+            };
+
+            // Agregar el nuevo comentario a la tabla de comentarios
+            _context.comentarios_libros.Add(nuevoComentario);
+
+            // Guardar los cambios en la base de datos
+            _context.SaveChanges();
+
+            // Redirigir a la vista de detalles del libro o cualquier otra vista según lo que desees hacer
+            return View("/Views/Prototipo3.cshtml");
+        }
+
 
     }
 }
