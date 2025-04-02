@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - L02P02_2022RC650_2022SH650</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/L02P02_2022RC650_2022SH650.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container d-flex flex-column p-5" style="background-color: #24252A; color: white">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/UNICAES_Logo.png/800px-UNICAES_Logo.png" alt="Logo" style="width: 10vh" class="logo" />
+                <h2 class="navbar-title">Comentarios por Libros</h2>
+                <p>Seleccione el autor -> Seleccione el Libro -> Se muestran los comentarios existentes -> Adicione un nuevo comentario</p>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container d-flex flex-column justify-content-center align-items-center p-2" style="background-color: #24252A; color: white;">
+            <p>
+                2003-08-02 - WILBER ANIBAL RIVAS CARRANZA
+            </p>
+            <p>
+                2003-09-26 - EYLEEN JEANNETHE SALINAS HERNÁNDEZ
+            </p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
