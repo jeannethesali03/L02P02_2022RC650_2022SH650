@@ -36,12 +36,11 @@ namespace L02P02_2022RC650_2022SH650.Controllers
         //}
 
 
-        public IActionResult Prototipo3(int id_Libro)
+        public IActionResult SeleccionarLibro(int id)
         {
-            id_Libro = 1;
             var libro = (from libros in _context.libros
                          join autores in _context.autores on libros.id_autor equals autores.id
-                         where libros.id == id_Libro
+                         where libros.id == id
                          select new
                          {
                              libros.nombre,
@@ -56,7 +55,7 @@ namespace L02P02_2022RC650_2022SH650.Controllers
             //}
 
             var comentarios = _context.comentarios_libros
-              .Where(comentarios => comentarios.id_libro == id_Libro)
+              .Where(comentarios => comentarios.id_libro == id)
               .Select(comentarios => new comentarios_libros
               {
                   id = comentarios.id,
@@ -69,7 +68,7 @@ namespace L02P02_2022RC650_2022SH650.Controllers
             ViewBag.Comentarios = comentarios;
             ViewBag.Libro = libro.nombre;
             ViewBag.Autor = libro.Autor;
-            ViewBag.IdLibro = id_Libro;
+            ViewBag.IdLibro = id;
 
            
 
